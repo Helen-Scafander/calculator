@@ -1,8 +1,3 @@
-function toFixed(number) {
-  let fix = Math.pow(10,14);
-  return Math.round(number * fix / fix).toString();
-}
-
 class Calculator {
   constructor(previousOperandTextElement, currentOperandTextElement) {
     this.previousOperandTextElement = previousOperandTextElement;
@@ -45,19 +40,19 @@ class Calculator {
     if (isNaN(prev) || isNaN(current)) return;
     switch (this.operation) {
       case '+':
-        computation = toFixed(prev + current);
+        computation = parseFloat((prev + current).toFixed(15));
         break;
       case '-':
-        computation = toFixed(prev - current);
+        computation = parseFloat((prev - current).toFixed(15));
         break;
       case '*':
-        computation = toFixed(prev * current);
+        computation = parseFloat((prev * current).toFixed(15));
         break;
       case '÷':
-        computation = toFixed(prev / current);
+        computation = parseFloat((prev / current).toFixed(15));
         break;
       case '^':
-        computation = toFixed(Math.pow(prev, current));
+        computation = parseFloat(Math.pow(prev, current).toFixed(15));
         break;
       default:
         return;
@@ -72,7 +67,7 @@ class Calculator {
     let result;
     const operand = parseFloat(this.currentOperand);
     if (isNaN(operand) || (operand < 0)) {
-      result = 'unexpected value'
+      alert('Error: square root from negative number');
     } else {
       result = Math.sqrt(operand);
     }
