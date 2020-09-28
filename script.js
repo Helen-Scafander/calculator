@@ -67,12 +67,11 @@ class Calculator {
     let result;
     const operand = parseFloat(this.currentOperand);
     if (isNaN(operand) || (operand < 0)) {
-      alert('Error: square root from negative number');
+      this.currentOperand = 'unexpected value';
     } else {
-      result = Math.sqrt(operand);
+      this.currentOperand = Math.sqrt(operand);
     }
     this.readyToReset = true;
-    this.currentOperand = result;
     this.operation = undefined;
     this.previousOperand = '';
   }
@@ -99,7 +98,11 @@ class Calculator {
   }
 
   updateDisplay() {
-    this.currentOperandTextElement.innerText = this.getDisplayNumber(this.currentOperand);
+    if (this.currentOperand === 'unexpected value') {
+        this.currentOperandTextElement.innerText = this.currentOperand;
+    } else {
+        this.currentOperandTextElement.innerText = this.getDisplayNumber(this.currentOperand);
+    }
     if (this.operation != null) {
       this.previousOperandTextElement.innerText = `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`
    } else {
